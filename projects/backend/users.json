@@ -1,0 +1,23 @@
+[
+  {
+    "name": "fathan",
+    "email": "fathan@mail.com",
+    "npp": "1111",
+    "npp_supervisor": "2222",
+    "password": "fathan123"
+  },
+  {
+    "name": "abdul",
+    "email": "abdul@mail.com",
+    "npp": "2222",
+    "npp_supervisor": "2222",
+    "password": "abdul123"
+  },
+  {
+    "name": "shodiq",
+    "email": "shodiq@mail.com",
+    "npp": "3333",
+    "npp_supervisor": "4444",
+    "password": "shodiq123"
+  }
+]
