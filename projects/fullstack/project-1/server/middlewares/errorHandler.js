@@ -1,6 +1,7 @@
 function errorHandler(err, req, res, next) {
   switch (err.name) {
     case 'SequelizeValidationError':
+    case 'SequelizeUniqueConstraintError':
       return res.status(400).json({ message: err.errors[0].message });
     case 'NotFound':
       return res.status(404).json({ message: 'Data not found' });
