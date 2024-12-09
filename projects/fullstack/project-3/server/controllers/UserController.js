@@ -8,7 +8,7 @@ class UserController {
       req.user.password = password ? hashPassword(password) : req.user.password;
       req.user.role = role ? role : req.user.role;
       await req.user.save();
-      res.json({ message: 'Successfully update user', result: req.user });
+      res.json({ message: 'Update user success', result: req.user });
     } catch (error) {
       console.log(error);
       next(error);
@@ -18,7 +18,7 @@ class UserController {
   static async destroy(req, res, next) {
     try {
       await req.user.destroy();
-      res.json({ message: 'Successfully delete user', result: req.user });
+      res.json({ message: 'Delete user success', result: req.user });
     } catch (error) {
       console.log(error);
       next(error);

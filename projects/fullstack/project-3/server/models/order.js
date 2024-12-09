@@ -1,10 +1,33 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     static associate(models) {
       Order.belongsTo(models.User);
       Order.belongsTo(models.Product);
+    }
+
+    static async findAllByRole(user) {
+      const orders =
+        user.role == 'admin'
+          ? await Order.findAll({
+              include: [
+                {
+                  model: sequelize.models.User,
+                },
+                {
+                  model: sequelize.models.Product,
+                },
+              ],
+            })
+          : await Order.findAll({
+              where: { UserId: user.id },
+              include: {
+                model: sequelize.models.Product,
+              },
+            });
+      return orders;
     }
   }
   Order.init(
