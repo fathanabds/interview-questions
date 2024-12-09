@@ -55,7 +55,14 @@ module.exports = (sequelize, DataTypes) => {
       category: {
         type: DataTypes.ENUM,
         values: ['fnb', 'retail'],
+        allowNull: false,
         validate: {
+          notEmpty: {
+            msg: 'Category is required',
+          },
+          notNull: {
+            msg: 'Category is required',
+          },
           isIn: {
             args: [['fnb', 'retail']],
             msg: 'Role must be fnb or retail',

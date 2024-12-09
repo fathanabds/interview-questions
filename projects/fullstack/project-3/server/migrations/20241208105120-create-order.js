@@ -17,6 +17,8 @@ module.exports = {
           },
           key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       ProductId: {
         type: Sequelize.INTEGER,
