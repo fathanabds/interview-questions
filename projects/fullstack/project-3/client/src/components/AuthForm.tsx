@@ -15,8 +15,6 @@ export default function AuthForm({ title }: Props) {
     role: '',
   });
 
-  console.log(form);
-
   const nav = useNavigate();
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {

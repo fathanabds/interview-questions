@@ -19,15 +19,15 @@ export default function Navbar() {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to={'/'}>Add New Product</Link>
+              <Link to={'/products/add'}>Add New Product</Link>
             </li>
             <li>
-              <Link to={'/'}>My Order</Link>
+              <Link to={'/orders'}>My Order</Link>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <button onClick={handleLogout} className="btn">
+          <button onClick={handleLogout} className="btn btn-error">
             Logout
           </button>
         </div>

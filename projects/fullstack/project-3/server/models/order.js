@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       const orders =
         user.role == 'admin'
           ? await Order.findAll({
+              order: [['updatedAt', 'DESC']],
               include: [
                 {
                   model: sequelize.models.User,
@@ -23,9 +24,15 @@ module.exports = (sequelize, DataTypes) => {
             })
           : await Order.findAll({
               where: { UserId: user.id },
-              include: {
-                model: sequelize.models.Product,
-              },
+              order: [['updatedAt', 'DESC']],
+              include: [
+                {
+                  model: sequelize.models.User,
+                },
+                {
+                  model: sequelize.models.Product,
+                },
+              ],
             });
       return orders;
     }

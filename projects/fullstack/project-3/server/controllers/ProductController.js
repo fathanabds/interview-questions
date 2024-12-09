@@ -14,7 +14,9 @@ class ProductController {
 
   static async findAll(req, res, next) {
     try {
-      const products = await Product.findAll();
+      const products = await Product.findAll({
+        order: [['updatedAt', 'DESC']],
+      });
       res.json(products);
     } catch (error) {
       console.log(error);
