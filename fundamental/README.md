@@ -22,7 +22,7 @@ Welcome to the Fundamental Interview Questions repository. This collection is in
 
 1. Clone the repository to your local machine.
    ```bash
-   git clone https://github.com/yourusername/interview-questions.git
+   git clone https://github.com/fathanabds/interview-questions.git
    ```
 2. Navigate to the `fundamental` directory.
    ```bash
