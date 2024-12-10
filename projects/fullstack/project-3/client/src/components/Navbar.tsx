@@ -24,6 +24,9 @@ export default function Navbar() {
             <li>
               <Link to={'/orders'}>My Order</Link>
             </li>
+            <li>
+              <Link to={'/profiles'}>My Profile</Link>
+            </li>
           </ul>
         </div>
         <div className="navbar-end">

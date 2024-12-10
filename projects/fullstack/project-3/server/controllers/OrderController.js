@@ -38,7 +38,7 @@ class OrderController {
 
   static async updatePayment(req, res, next) {
     try {
-      req.order.isPaid == true;
+      req.order.isPaid = true;
       await req.order.save();
       res.json({ message: 'Success update payment status' });
     } catch (error) {

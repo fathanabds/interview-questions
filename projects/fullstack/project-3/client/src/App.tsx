@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import UpdateProduct from './pages/UpdateProduct';
 import AddProduct from './pages/AddProduct';
 import OrderPage from './pages/OrderPage';
+import ProfilePage from './pages/ProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/orders',
         element: <OrderPage />,
+      },
+      {
+        path: '/profiles',
+        element: <ProfilePage />,
       },
       {
         path: '/products/:productId',

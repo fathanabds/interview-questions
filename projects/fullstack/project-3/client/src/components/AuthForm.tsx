@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosClient from '../utils/axiosClient';
 import Swal from 'sweetalert2';
@@ -15,6 +15,33 @@ export default function AuthForm({ title }: Props) {
     role: '',
   });
 
+  async function populateForm() {
+    if (title == 'Profile') {
+      try {
+        const { data } = await axiosClient.get('/users', {
+          headers: {
+            Authorization: localStorage.getItem('access_token'),
+          },
+        });
+        setForm((prevForm) => {
+          return {
+            ...prevForm,
+            email: data.email,
+          };
+        });
+      } catch (error) {
+        console.log(error);
+        if (error instanceof AxiosError) {
+          Swal.fire(error.response?.data.message);
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    populateForm();
+  }, []);
+
   const nav = useNavigate();
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
@@ -26,6 +53,23 @@ export default function AuthForm({ title }: Props) {
     });
   }
 
+  async function handleDelete() {
+    try {
+      await axiosClient.delete('/users', {
+        headers: {
+          Authorization: localStorage.getItem('access_token'),
+        },
+      });
+      nav('/login');
+      localStorage.removeItem('access_token');
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) {
+        Swal.fire(error.response?.data.message);
+      }
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
@@ -33,10 +77,18 @@ export default function AuthForm({ title }: Props) {
         await axiosClient.post('/auth/register', form);
         nav('/login');
         Swal.fire('Register success');
-      } else {
+      } else if (title == 'Login') {
         const { data } = await axiosClient.post('/auth/login', form);
         localStorage.setItem('access_token', `Bearer ${data.access_token}`);
         nav('/');
+      } else {
+        await axiosClient.put('/users', form, {
+          headers: {
+            Authorization: localStorage.getItem('access_token'),
+          },
+        });
+        populateForm();
+        Swal.fire('Success update profile');
       }
     } catch (error) {
       console.log(error);
@@ -77,12 +129,17 @@ export default function AuthForm({ title }: Props) {
               </select>
             </label>
           )}
-          <button className="btn btn-primary w-full">{title}</button>
+          <button className="btn btn-primary w-full">{title == 'Register' || title == 'Login' ? title : `Update ${title}`}</button>
+          {title == 'Profile' && (
+            <button onClick={handleDelete} className="btn btn-error w-full mt-3">
+              Delete Account
+            </button>
+          )}
         </form>
         <p>
-          {title == 'Login' ? "Don't have an account yet?" : 'Already have an account?'}{' '}
+          {title == 'Login' && "Don't have an account yet?"} {title == 'Register' && 'Already have an account?'}{' '}
           <Link className="text-blue-500 link" to={title == 'Login' ? '/register' : '/login'}>
-            {title == 'Login' ? 'Register' : 'Login'}
+            {title == 'Login' && 'Register'} {title == 'Register' && 'Login'}
           </Link>
         </p>
       </div>

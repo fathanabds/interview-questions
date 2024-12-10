@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', OrderController.findAll);
 router.post('/', OrderController.create);
 router.get('/:orderId', guardOrder, OrderController.findByPk);
-router.put('/:orderId', guardOrder, OrderController.updatePayment);
+router.patch('/:orderId', guardOrder, OrderController.updatePayment);
 router.delete('/:orderId', guardOrder, OrderController.destroy);
 
 module.exports = router;

@@ -2,7 +2,7 @@ const { Order } = require('../models');
 
 async function guardOrder(req, res, next) {
   try {
-    const order = await Order.findByPk(req.params.productId);
+    const order = await Order.findByPk(req.params.orderId);
     if (!order) {
       throw { name: 'NotFound', message: 'Order not found' };
     }
